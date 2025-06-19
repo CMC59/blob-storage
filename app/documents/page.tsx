@@ -17,6 +17,7 @@ import Uploader from "../upload/page";
 import { put } from "@vercel/blob";
 import { list } from '@vercel/blob';
 import { revalidatePath } from 'next/cache';
+import { del } from '@vercel/blob';
 
 // const { url } = await put('articles/blob.txt', 'Hello World!', { access: 'public' });
 export default async function DocumentsPage() {
@@ -30,6 +31,17 @@ export default async function DocumentsPage() {
         });
         revalidatePath('/');
         return blob;
+    }
+    async function deleteDocument(formData: FormData) {
+        'use server';
+        const urlToDelete = formData.get('url') as string;
+        
+        if (!urlToDelete) {
+            throw new Error('No URL provided');
+        }
+        
+        await del(urlToDelete);
+        revalidatePath('/documents');
     }
     return  (
         <>
@@ -47,21 +59,26 @@ export default async function DocumentsPage() {
                     <TableBody>
                         {response.blobs.map((blob) => (
                             <TableRow key={blob.pathname}>
-                            <TableCell className="font-medium">{blob.uploadedAt ? new Date(blob.uploadedAt
-                                ).toLocaleString()
-                            : "-"}</TableCell>
-                            <TableCell>{blob.pathname.split('.').pop()}</TableCell>
-                            <TableCell>{blob.pathname}</TableCell>
-                            <TableCell className="text-left">
-                                <Button variant="outline"><Trash2 color="black" size={64} /></Button>
-                                <a href={blob.downloadUrl} download>
-                                <Button variant="outline">
-                                    <FileDown color="black" size={32} />
-                                </Button>
-                                </a>                            
-                            </TableCell>
+                                <TableCell className="font-medium">{blob.uploadedAt ? new Date(blob.uploadedAt
+                                    ).toLocaleString()
+                                : "-"}</TableCell>
+                                <TableCell>{blob.pathname.split('.').pop()}</TableCell>
+                                <TableCell>{blob.pathname}</TableCell>
+                                <TableCell className="flex items-center gap-2">
+                                    <form action={deleteDocument}>
+                                        <input type="hidden" name="url" value={blob.url} />
+                                        <Button variant="outline" type="submit">
+                                            <Trash2 color="black" size={16}/>
+                                        </Button>
+                                    </form>
+                                            <a href={blob.downloadUrl} download>
+                                                <Button variant="outline">
+                                                    <FileDown color="black" size={32} />
+                                                </Button>
+                                            </a>
+                                </TableCell>
                             </TableRow>
-                        ))}
+                            ))}
                         </TableBody>
                 </Table>
             </div>
