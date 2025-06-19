@@ -46,7 +46,7 @@ export default async function DocumentsPage() {
     return  (
         <>
             <div className="w-full max-w-8xl p-7 bg-white rounded shadow">
-                <Table>
+                <Table className="table-auto">
                     <TableCaption className={styles.caption}>Liste des documents importés</TableCaption>
                     <TableHeader>
                         <TableRow>
@@ -67,15 +67,15 @@ export default async function DocumentsPage() {
                                 <TableCell className="flex items-center gap-2">
                                     <form action={deleteDocument}>
                                         <input type="hidden" name="url" value={blob.url} />
-                                        <Button variant="outline" type="submit">
+                                        <Button className="hover:border-red-400" variant="outline" type="submit">
                                             <Trash2 color="black" size={16}/>
                                         </Button>
                                     </form>
-                                            <a href={blob.downloadUrl} download>
-                                                <Button variant="outline">
-                                                    <FileDown color="black" size={32} />
-                                                </Button>
-                                            </a>
+                                    <a href={blob.downloadUrl} download>
+                                        <Button className="hover:border-green-400" variant="outline">
+                                            <FileDown color="black" size={32} />
+                                        </Button>
+                                    </a>
                                 </TableCell>
                             </TableRow>
                             ))}
