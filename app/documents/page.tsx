@@ -13,8 +13,12 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import Uploader from "../upload/page";
+// import { put } from "@vercel/blob";
+import { list } from '@vercel/blob';
 
-export default function DocumentsPage() {
+// const { url } = await put('articles/blob.txt', 'Hello World!', { access: 'public' });
+export default async function DocumentsPage() {
+     const response = await list();
     return  (
         <>
             <div>
@@ -48,6 +52,13 @@ export default function DocumentsPage() {
             </div>
             <div className={`flex justify-center ${styles.uploader}`}>
                 <Uploader />
+            </div>
+            <div>
+                {response.blobs.map((blob) => (
+                    <a key={blob.pathname} href={blob.downloadUrl}>
+                    {blob.pathname}
+                    </a>
+                ))}
             </div>
         </>
     );    
