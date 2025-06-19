@@ -10,13 +10,13 @@ import {
 
 export default function DocumentsPage() {
     return      <Table>
-            <TableCaption>A list of your recent invoices.</TableCaption>
+            <TableCaption>Liste des documents importés</TableCaption>
             <TableHeader>
                 <TableRow>
-                <TableHead className="w-[100px]">Invoice</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Method</TableHead>
-                <TableHead className="text-right">Amount</TableHead>
+                <TableHead className="w-[100px]">Nom du document</TableHead>
+                <TableHead>Extension du fichier</TableHead>
+                <TableHead>Nom du document</TableHead>
+                <TableHead className="text-right">Actions</TableHead>
                 </TableRow>
             </TableHeader>
             <TableBody>
