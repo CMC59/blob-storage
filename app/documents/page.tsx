@@ -50,7 +50,7 @@ export default async function DocumentsPage() {
                     <TableCaption className={styles.caption}>Liste des documents importés</TableCaption>
                     <TableHeader>
                         <TableRow>
-                            <TableHead className={styles.tablehead}>Date import du document</TableHead>
+                            <TableHead className={styles.tablehead}>Date de l'import du document</TableHead>
                             <TableHead className={styles.tablehead}>Extension du fichier</TableHead>
                             <TableHead className={styles.tablehead}>Nom du document</TableHead>
                             <TableHead className={styles.tablehead}>Actions</TableHead>
