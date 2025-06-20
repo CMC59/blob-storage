@@ -30,7 +30,6 @@ export default async function DocumentsPage() {
             addRandomSuffix: true,
         });
         revalidatePath('/');
-        return blob;
     }
     async function deleteDocument(formData: FormData) {
         'use server';
