@@ -18,6 +18,7 @@ import { put } from "@vercel/blob";
 import { list } from '@vercel/blob';
 import { revalidatePath } from 'next/cache';
 import { del } from '@vercel/blob';
+import { Fragment } from "react";
 
 // const { url } = await put('articles/blob.txt', 'Hello World!', { access: 'public' });
 export default async function DocumentsPage() {
@@ -43,7 +44,7 @@ export default async function DocumentsPage() {
         revalidatePath('/documents');
     }
     return  (
-        <>
+        <Fragment>
             <div className="w-full max-w-8xl p-7 bg-white rounded shadow">
                 <Table className="table-auto">
                     <TableCaption className={styles.caption}>Liste des documents importés</TableCaption>
@@ -93,6 +94,6 @@ export default async function DocumentsPage() {
                 <Button type="submit">Upload</Button>
             </form>
             </div>
-        </>
+        </Fragment>
     );    
 }
